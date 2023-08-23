@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>HTML DOM Events</h1>
+<h2>The blur Event</h2>
+
+Enter your name: <input type="text" id="fname"
+ onblur="myFunction(this)">
+<span id="message"> </span>
+<p>When you leave the input field, a function is triggered which transforms the input text to upper case.</p>
+
+<script>
+function myFunction(a) {
+  let x = a;
+ 
+  alert(x);
+     if(x== "")
+     {
+        document.getElementById("message").innerHTML = "Please Enter Name";
+     }
+ 
+
+}
+</script>
+
+</body>
+</html>

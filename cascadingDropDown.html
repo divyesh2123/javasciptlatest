@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <select onchange="bindState()" id="country">
+
+        <option>Select Country</option>
+            <option value="INA">India</option>
+            <option value="USA">USA</option>
+    </select>
+
+    <select  id="state">
+        <option>Select State</option>
+    
+</select>
+
+<script>
+
+    let myjson = [
+
+    {
+        country: "USA",
+        state : [ 
+            {
+                Id: "CA",
+
+                cities : []
+
+            },
+            {
+                Id: "NC",
+
+                cities : []
+
+            },
+            {
+                Id: "WV",
+
+                cities : []
+
+            },
+            {
+                Id: "AB",
+
+                cities : []
+
+            }
+
+
+        ]
+    },
+
+    {
+        country: "INA",
+        state : [ 
+            {
+                Id: "GUJ",
+
+                cities : []
+
+            },
+            {
+                Id: "MAHa",
+
+                cities : []
+
+            },
+            {
+                Id: "RAJ",
+
+                cities : []
+
+            },
+            {
+                Id: "MP",
+
+                cities : []
+
+            }
+
+
+        ]
+    }
+
+
+    ]
+
+    function bindState()
+    {
+
+        let value1 = document.getElementById("country").value;
+
+        let html= myjson.find(function(value) {
+
+          return  value.country == value1;
+        }).state.map(function(b) {
+
+
+            return `<option>${b.Id}</option>`
+        })
+
+        document.getElementById("state").innerHTML = html.join(" ");
+
+    }
+
+</script>
+    
+</body>
+</html>

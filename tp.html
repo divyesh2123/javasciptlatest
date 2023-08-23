@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="number" id="mynumber" />
+
+    <input type="button" onclick="SaveInfo()" value="SaveInfo"/>
+
+    <table>
+
+            <tr>
+
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td class="mytest">
+                    12
+
+                </td>
+                <td>
+                    <button>+</button>
+                    </td>
+
+                    <td>
+                        <button>-</button>
+                        </td>
+    
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td class="mytest">
+                    67
+
+                </td>
+                <td>
+                    <button>+</button>
+                    </td>
+
+                    <td>
+                        <button>-</button>
+                        </td>
+    
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td class="mytest">
+                    34
+
+                </td>
+                <td>
+                    <button onclick="Increment(this)">+</button>
+                    </td>
+
+            <td>
+                        <button onclick="Decrement(this)">-</button>
+                 </td>
+    
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td class="mytest">
+                    12
+
+                </td>
+                <td>
+                    <button>+</button>
+                    </td>
+
+                    <td>
+                        <button>-</button>
+                        </td>
+    
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td class="mytest">
+                    16
+
+                </td>
+                <td>
+                    <button>+</button>
+                    </td>
+
+                    <td>
+                        <button>-</button>
+                        </td>
+    
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td class="mytest">
+                    14
+
+                </td>
+                <td>
+                    <button>+</button>
+                    </td>
+
+                    <td>
+                        <button>-</button>
+                        </td>
+    
+
+            </tr>
+
+
+    </table>
+    
+    <script>
+
+        let d= document.querySelector(".test");
+
+        d.style.color= "Red";
+
+        function Increment(value)
+        {
+           let v = parseInt(value.parentElement.parentElement.
+           querySelector(".mytest").innerText);
+
+           value.parentElement.parentElement.
+           querySelector(".mytest").innerHTML = v+1;
+
+
+        }
+
+        function Decrement(value)
+        {
+
+            let v = parseInt(value.parentElement.parentElement.
+           querySelector(".mytest").innerText);
+
+           value.parentElement.parentElement.
+           querySelector(".mytest").innerHTML = v-1;
+
+        }
+
+     
+        function SaveInfo()
+        {
+            let allelements = document.getElementsByClassName("mytest");
+
+            for(let i=0;i<allelements.length;i++)
+            {
+                allelements[i].innerHTML = parseInt(allelements[i].innerText) + parseInt(document.getElementById("mynumber").value);
+            }
+        }
+
+
+    </script>
+</body>
+</html>

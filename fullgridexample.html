@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table >
+
+        <input type="text"  id="searchTerm"/>
+        <tr>
+
+            <th>
+
+                ID
+
+               
+
+                <select onchange="ChangeValue(this,'id')">
+                    <option value="E">Equal</option>
+                    <option value="NT">Not Equal</option>
+                    <option value="GT">Greater</option>
+                    <option value="LE">Less</option>
+
+                </select>
+
+                <button onclick="arrangeValue('asc','Id')">asc</button>
+                <button onclick="arrangeValue('dec','Id')">dec</button>
+
+            </th>
+
+            <th>
+
+                userId
+            </th>
+
+            <th>
+
+                Title
+
+                <select onchange="ChangeValue(this,'title')">
+                    <option value="C">Contains</option>
+                    <option value="NC">Not Contains</option>
+                    <option value="SW">Start With</option>
+                    <option value="EW">End With</option>
+
+                </select>
+            </th>
+
+        </tr>
+        
+
+
+        <tbody id="display">
+
+
+        </tbody>
+
+
+    </table>
+
+
+    <script>
+
+        let myarray = [];
+        fetch("https://jsonplaceholder.typicode.com/albums")
+        .then(value=>value.json())
+        .then(value=> {
+            myarray= value;
+            display(value);
+
+        })
+
+        
+        const display = (op)=> {
+
+          let result =   op.map((value)=>{
+
+                return `<tr><td>${value.userId}</td>
+                    <td>${value.id}</td>
+                    <td>${value.title}</td>
+                    </tr>`
+
+            });
+
+
+            document.getElementById("display").innerHTML = result.join(" ");
+
+        }
+
+        ChangeValue = (op,field)=> {
+
+            console.log(field);
+            console.log(op.value);
+
+            let valuetobesearch= document.getElementById("searchTerm").value;
+
+            let filterData = myarray.filter((value)=> {
+
+                if(op.value == "C")
+                {
+                   return value[field].indexOf(valuetobesearch) >=0;
+                }
+
+                else if(op.value == "SW")
+                {
+                    return value[field].startsWith(valuetobesearch);
+
+                }
+                else if(op.value == "E")
+                {
+
+                    return parseInt(value[field]) == parseInt(valuetobesearch);
+                }
+                return false;
+            })
+
+            display(filterData);
+
+        }
+
+        arrangeValue = (type,field)=> {
+
+            myarray.sort((a,b)=> {
+
+                if(typeof a[field] == "number" )
+                {
+
+                    if(type == "asc")
+                    {
+
+                        return a[field]- b[field];
+                    }
+                    else
+
+                    {
+                        return b[field]- a[field];
+                    }
+
+
+
+                }
+                else
+                {
+                    if(type == "asc")
+                    {
+
+                        if(a[field] > b[field])
+                        {
+                            return 1;
+                        }
+                        else
+
+                        {
+                            return -1;
+                        }
+
+
+                    }
+
+                    else
+
+                    {
+                        
+                        if(a[field] > b[field])
+                        {
+                            return -1;
+                        }
+                        else
+
+                        {
+                            return 1;
+                        }
+
+                    }
+
+
+                }
+
+            })
+
+            display(myarray);
+        }
+    </script>
+    
+</body>
+</html>

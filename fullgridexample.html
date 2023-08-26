@@ -73,13 +73,46 @@
         })
 
         
-        const display = (op)=> {
+        const display = (op, issearch= false)=> {
 
+          
           let result =   op.map((value)=>{
+
+            let formatvalue ='';
+        
+            if(issearch)
+            {
+                
+            let valuetobesearch= document.
+            getElementById("searchTerm")
+            .value;
+
+             formatvalue = 
+            `${value.title.slice(0,value.title.indexOf(valuetobesearch))}  
+            <span style="color:red">
+                 ${value.title.substr(value.title.indexOf(valuetobesearch), valuetobesearch.length)}
+
+                 </span>
+
+                 ${value.title.substr(value.title.indexOf(valuetobesearch)+1+ valuetobesearch.length)}
+            
+            `
+
+
+
+
+
+            }
+            else
+            {
+                formatvalue = value.title;
+            
+            }
+
 
                 return `<tr><td>${value.userId}</td>
                     <td>${value.id}</td>
-                    <td>${value.title}</td>
+                    <td>${formatvalue}</td>
                     </tr>`
 
             });
@@ -116,7 +149,7 @@
                 return false;
             })
 
-            display(filterData);
+            display(filterData,true);
 
         }
 

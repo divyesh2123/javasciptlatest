@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="test">
+    
+        asadsad
+    <div class="test">This is the test</div>
+    <div class="test">This is the test</div>
+    <div class="test">This is the test</div>
+    <div class="test">This is the test</div>
+    <div class="test">This is the test</div>
+    <div class="test">This is the test</div>
+    <div class="test">This is the test</div>
+
+    <input type="text" class="education" id="edu1" value="BE"/>
+    <input type="text" class="education" id="edu2" value="Project Management"/>
+    <input type="text" class="education" id="edu3" value="MBA"/>
+
+</div>
+
+    <script>
+
+
+        let t = document.querySelectorAll(".education");
+        let t1 = document.getElementsByClassName("education");
+
+        let d= document.createElement("input");
+
+        d.className = "education";
+
+        document.body.append(d);
+
+        console.log(t.length);
+
+        console.log(t1.length);
+
+        let p = document.querySelector ("#test").parentElement;
+
+        console.log(p);
+        p.style.color = "red";
+
+      
+      
+
+    </script>
+</body>
+</html>

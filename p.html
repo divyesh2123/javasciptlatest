@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Kendo UI Snippet</title>
+
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.6.0/default/default-ocean-blue.css"/>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.718/js/kendo.all.min.js"></script>
+</head>
+<body>
+  
+    <ul id="treeview">
+      
+    </ul>
+
+
+    <ul id="menu">
+        <li><img src="https://demos.telerik.com/kendo-ui/content/web/toolbar/forward.png" />copy</li>
+        <li><img src="https://demos.telerik.com/kendo-ui/content/web/treeview/close.png" />paste</li>
+    </ul>
+
+    <script>
+      $(document).ready(function() {
+        var copiedNodeData = null;
+        var treeData = [
+                { id: 1, text: "Node 1", items: [
+                    { id: 2, text: "Node 1.1" },
+                    { id: 3, text: "Node 1.2" }
+                ]},
+                { id: 4, text: "Node 2" },
+                { id: 5, text: "Node 3" }
+            ];
+
+            // Initialize TreeView
+            var tree = $("#treeview").kendoTreeView({
+                dataSource: treeData
+            }).data("kendoTreeView");
+
+        $("#menu").kendoContextMenu({
+          // listen to right-clicks on treeview container
+          target: "#treeview",
+
+          // show when node text is clicked
+          filter: ".k-in",
+
+          // handle item clicks
+          select: function(e) {
+            var button = $(e.item);
+            var node = $(e.target);
+            alert(kendo.format("'{0}' button clicked on '{1}' node", button.text(), node.text()));
+
+
+            var selectedNode = tree.select();
+            if (selectedNode.length > 0 && button.text()=="copy") {
+                    copiedNodeData = tree.dataItem(selectedNode).toJSON();
+                    console.log("Node data copied:", copiedNodeData);
+                }
+
+                if (copiedNodeData !== null && button.text()=="paste") {
+                    var selectedNode = tree.select();
+                    if (selectedNode.length > 0) {
+                        var parentNode = tree.dataItem(selectedNode);
+                        tree.append(copiedNodeData, selectedNode);
+                        tree.expand(parentNode);
+                        console.log("Node data pasted:", copiedNodeData);
+                    }
+                }
+            
+               
+
+            console.log(selectedNode)
+            alert(selectedNode);
+
+
+            // you can get the node data (e.g. id) via the TreeView dataItem method:
+            // $("#treeview").data("kendoTreeView").dataItem(node);
+          }
+        });
+      });
+    </script>
+
+    <style scoped>
+      /* allow menu to break out of treeview container */
+      div.k-treeview {
+        overflow: visible;
+      }
+
+      #treeview .k-sprite {
+        background-image: url("https://demos.telerik.com/kendo-ui/content/web/treeview/coloricons-sprite.png");
+      }
+      .folder { background-position: 0 -16px; }
+      .html { background-position: 0 -48px; }
+      .image { background-position: 0 -64px; }
+
+    </style>
+</body>
+</html>

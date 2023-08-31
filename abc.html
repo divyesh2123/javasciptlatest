@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kendo UI TreeView Example</title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+</head>
+<body>
+    <div id="tree"></div>
+
+    <button id="copyButton">Copy</button>
+    <button id="pasteButton">Paste</button>
+
+    <script>
+        $(document).ready(function () {
+            // Sample tree data
+            var treeData = [
+                { id: 1, text: "Node 1", items: [
+                    { id: 2, text: "Node 1.1" },
+                    { id: 3, text: "Node 1.2" }
+                ]},
+                { id: 4, text: "Node 2" },
+                { id: 5, text: "Node 3" }
+            ];
+
+            // Initialize TreeView
+            var tree = $("#tree").kendoTreeView({
+                dataSource: treeData
+            }).data("kendoTreeView");
+
+            var copiedNodeData = null;
+
+            // Copy button click event handler
+            $("#copyButton").click(function () {
+                var selectedNode = tree.select();
+                if (selectedNode.length > 0) {
+                    copiedNodeData = tree.dataItem(selectedNode).toJSON();
+                    console.log("Node data copied:", copiedNodeData);
+                }
+            });
+
+            // Paste button click event handler
+            $("#pasteButton").click(function () {
+                if (copiedNodeData !== null) {
+                    var selectedNode = tree.select();
+                    if (selectedNode.length > 0) {
+                        var parentNode = tree.dataItem(selectedNode);
+                        tree.append(copiedNodeData, selectedNode);
+                        tree.expand(parentNode);
+                        console.log("Node data pasted:", copiedNodeData);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -171,11 +171,20 @@
      
         function SaveInfo()
         {
+            let t = document.querySelectorAll('input:checked');
+
+            console.log(t.length);
             let allelements = document.getElementsByClassName("mytest");
 
             for(let i=0;i<allelements.length;i++)
             {
+                let checkvalue = allelements[i].parentElement.getElementsByTagName("input")[0].checked;
+
+               if(checkvalue || t.length ==0)
+               {
                 allelements[i].innerHTML = parseInt(allelements[i].innerText) + parseInt(document.getElementById("mynumber").value);
+
+               }
             }
         }
 

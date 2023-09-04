@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        function handleCheck(t)
+        {
+
+            let p = t.parentElement.getElementsByTagName("input");
+            
+            let nearbyinputparent = t.parentElement.getElementsByTagName("input")[0];
+
+
+
+            if(t.checked == true)
+            {
+                for(let i =0;i<p.length;i++)
+                {
+                    p[i].checked = true;
+                }
+
+                nearbyinputparent.checked = true;
+            }
+            else
+            {
+
+                for(let i =0;i<p.length;i++)
+                {
+                    p[i].checked = false;
+                }
+
+                nearbyinputparent.checked = false;
+
+            }
+
+        
+
+            console.log(p);
+
+
+        }
+
+    </script>
+
+    <div>
+
+      FullStack  
+      <input type="checkbox" onclick="handleCheck(this)" />
+        <div>
+
+            FrontEnd    <input type="checkbox"  onclick="handleCheck(this)"/> 
+
+            <div>
+                Html <input type="checkbox" />
+            </div>
+
+            <div>
+                Css <input type="checkbox" />
+            </div>
+
+            <div>
+                Javascript <input type="checkbox" />
+            </div>
+
+            <div>
+                React <input type="checkbox" />
+            </div>
+
+        </div>
+
+        <div>
+
+            BackEnd    <input type="checkbox" onclick="handleCheck(this)" /> 
+
+            <div>
+                F# <input type="checkbox" />
+            </div>
+
+            <div>
+                C# <input type="checkbox" />
+            </div>
+
+            <div>
+                Node <input type="checkbox" />
+            </div>
+
+            <div>
+                Python <input type="checkbox" />
+            </div>
+
+        </div>
+
+
+    </div>
+    
+</body>
+</html>

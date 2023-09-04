@@ -14,19 +14,20 @@
         {
             constructor(name1)
             {
-                this.name1= name1;
+                this.name= name1;
+                this.displaywithnormal = this.displaywithnormal.bind(this);
             }
 
             displaywithnormal()
             {
 
-                console.log(this.name1);
+                console.log(this.name);
             }
 
             displaywitharrow= ()=>
             {
 
-                console.log(this.name1);
+                console.log(this.name);
 
             }
 

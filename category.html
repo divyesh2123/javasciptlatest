@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <script>
+
+        let token = JSON.parse(localStorage.getItem("token"))
+        .accessToken;
+        fetch("http://20.246.136.52/api/v1/category/1/1",{
+            headers : {
+                'Content-Type' : "Application/json",
+                "Authorization" : "Bearer " + token
+            }
+        }).then(y=>y.json())
+        .then(y=> {
+
+            console.log(y);
+        })
+
+    </script>
+    
+</body>
+</html>

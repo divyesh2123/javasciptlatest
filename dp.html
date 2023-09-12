@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kendo Grid with Batch Edit and Dropdown</title>
+    <!-- Include Kendo UI CSS and JavaScript -->
+    <!-- Include jQuery -->
+
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.2.504/styles/kendo.common.min.css">
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2023.2.504/styles/kendo.default.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2023.2.829/mjs/kendo.all.js"></script>
+
+</head>
+<body>
+    <div id="grid"></div>
+
+  
+
+    <script>
+        $(document).ready(function() {
+            // Define your data source
+            var dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "https://jsonplaceholder.typicode.com/users", // JSONPlaceholder API for example
+                        dataType: "json" // Expected response format
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "id",
+                        fields: {
+                            name: { editable: true },
+                            email: { editable: true },
+                            phone: { editable: true },
+                            company: { editable: true }
+                        }
+                    }
+                },
+                pageSize: 10 // Number of records per page
+            });
+
+            // Initialize the Kendo Grid
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                toolbar: ["create", "save", "cancel"],
+                editable: "batch", // Enable batch editing
+                columns: [
+                    { field: "name", title: "Name" },
+                    { field: "email", title: "Email" },
+                    { field: "phone", title: "Phone" },
+                    {
+                        field: "company.name",
+                        title: "Company",
+                        editor: function(container, options) {
+                            // Create a dropdown list
+                            $('<input name="' + options.field + '"/>')
+                                .appendTo(container)
+                                .kendoDropDownList({
+                                    dataSource: {
+                                        data: [{ name: "Company 1" }, { name: "Company 2" }, { name: "Company 3" }]
+                                    },
+                                    dataTextField: "name",
+                                    dataValueField: "name",
+                                    optionLabel: "-- Select --" // Placeholder text
+                                });
+                        }
+                    },
+                    { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
+                ],
+                sortable: true,
+                pageable: true
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="checkbox-container">
+        <label><input type="checkbox" id="parent-of-all"> Parent of All</label>
+        <ul>
+            <li>
+                <label><input type="checkbox" class="parent"> Parent 1</label>
+                <ul>
+                    <li>
+                        <label><input type="checkbox" class="parent"> Child 1.1</label>
+                        <ul>
+                            <li><label><input type="checkbox" class="child"> Grandchild 1.1.1</label></li>
+                            <li><label><input type="checkbox" class="child"> Grandchild 1.1.2</label></li>
+                        </ul>
+                    </li>
+                    <li><label><input type="checkbox" class="child"> Child 1.2</label></li>
+                </ul>
+            </li>
+            <li>
+                <label><input type="checkbox" class="parent"> Parent 2</label>
+                <ul>
+                    <li><label><input type="checkbox" class="child"> Child 2.1</label></li>
+                    <li><label><input type="checkbox" class="child"> Child 2.2</label></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <script>
+
+
+const parentOfAllCheckbox = document.querySelector('#parent-of-all');
+const parentCheckboxes = document.querySelectorAll('.parent');
+const childCheckboxes = document.querySelectorAll('.child');
+
+// Function to update child checkboxes when a parent checkbox is clicked
+function updateChildCheckboxes(parentCheckbox) {
+    const isChecked = parentCheckbox.checked;
+
+    // Find the closest ul element (parent's sibling) and get its child checkboxes
+    const childCheckboxes = parentCheckbox.closest('li').querySelectorAll('.child');
+
+    childCheckboxes.forEach(childCheckbox => {
+        childCheckbox.checked = isChecked;
+    });
+}
+
+// Function to update parent checkboxes based on child checkboxes
+function updateParentCheckbox(childCheckbox) {
+    const parentLi = childCheckbox.closest('li');
+    const parentCheckbox = parentLi.querySelector('.parent');
+
+    // Check if all child checkboxes are checked
+    const allChildrenChecked = Array.from(parentLi.querySelectorAll('.child')).every(child => child.checked);
+
+    parentCheckbox.checked = allChildrenChecked;
+
+    // Update the top-most parent checkbox
+    if (parentCheckbox.classList.contains('top-parent')) {
+        updateTopParentCheckbox();
+    }
+}
+
+// Function to update the top-most parent checkbox based on all child checkboxes
+function updateTopParentCheckbox() {
+    const allChildCheckboxes = document.querySelectorAll('.child');
+    const allChecked = Array.from(allChildCheckboxes).every(child => child.checked);
+    parentOfAllCheckbox.checked = allChecked;
+}
+
+// Attach click event listeners to "parent of all" checkbox
+parentOfAllCheckbox.addEventListener('click', () => {
+    const isChecked = parentOfAllCheckbox.checked;
+    parentCheckboxes.forEach(parentCheckbox => {
+        parentCheckbox.checked = isChecked;
+        updateChildCheckboxes(parentCheckbox);
+    });
+    childCheckboxes.forEach(childCheckbox => {
+        childCheckbox.checked = isChecked;
+    });
+});
+
+// Attach click event listeners to top-level parent checkboxes
+parentCheckboxes.forEach(parentCheckbox => {
+    if (!parentCheckbox.closest('li').querySelector('.parent')) {
+        parentCheckbox.classList.add('top-parent');
+    }
+    parentCheckbox.addEventListener('click', () => {
+        updateChildCheckboxes(parentCheckbox);
+        updateTopParentCheckbox();
+    });
+});
+
+// Attach click event listeners to child checkboxes
+childCheckboxes.forEach(childCheckbox => {
+    childCheckbox.addEventListener('click', () => {
+        updateParentCheckbox(childCheckbox);
+        updateTopParentCheckbox();
+    });
+});
+
+
+
+
+
+    </script>
+    
+
+    
+</body>
+</html>

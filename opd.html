@@ -12,11 +12,16 @@
         function handleCheck(t)
         {
 
-            let p = t.parentElement.getElementsByTagName("input");
+            let p = t.parentNode.getElementsByTagName("input");
             
-            let nearbyinputparent = t.parentElement.getElementsByTagName("input")[0];
+            console.log(t.parentNode);
+            let pchecked= t.parentElement.querySelectorAll('input[type="checkbox"]');
+            let nearbyinputparent = t.parentElement.parentElement.getElementsByTagName("input")[0];
 
+            let superinputparent = 
+            t.parentElement.parentElement.parentElement.getElementsByTagName("input")[0];
 
+            console.log(nearbyinputparent);
 
             if(t.checked == true)
             {
@@ -25,11 +30,42 @@
                     p[i].checked = true;
                 }
 
+
+
                 nearbyinputparent.checked = true;
+               
+                superinputparent.checked = true;
+
+                let allcheckboxchecked= document.body.
+                querySelectorAll('input[type="checkbox"]:checked');
+                let allcheckbox= document.body.
+                querySelectorAll('input[type="checkbox"]');
+
+
+                console.log(allcheckbox);
+    
+
+                if(allcheckboxchecked.length == allcheckbox.length)
+                {
+                    superinputparent.checked=true;
+                    nearbyinputparent.checked = true;
+                }
+                else
+                {
+                    superinputparent.checked = false;
+                    nearbyinputparent.checked = false;
+                }
+               
+                
             }
             else
             {
+                nearbyinputparent.checked = false;
 
+                if(superinputparent)
+                {
+                    superinputparent.checked = false;
+                }
                 for(let i =0;i<p.length;i++)
                 {
                     p[i].checked = false;
@@ -51,25 +87,25 @@
     <div>
 
       FullStack  
-      <input type="checkbox" onclick="handleCheck(this)" />
+      <input value="full" type="checkbox" onclick="handleCheck(this)" />
         <div>
 
-            FrontEnd    <input type="checkbox"  onclick="handleCheck(this)"/> 
+            FrontEnd    <input value="frontend" type="checkbox"  onclick="handleCheck(this)"/> 
 
             <div>
-                Html <input type="checkbox" />
+                Html <input type="checkbox"  onclick="handleCheck(this)"/>
             </div>
 
             <div>
-                Css <input type="checkbox" />
+                Css <input type="checkbox" onclick="handleCheck(this)" />
             </div>
 
             <div>
-                Javascript <input type="checkbox" />
+                Javascript <input type="checkbox"  onclick="handleCheck(this)"/>
             </div>
 
             <div>
-                React <input type="checkbox" />
+                React <input type="checkbox"  onclick="handleCheck(this)"/>
             </div>
 
         </div>
@@ -79,19 +115,19 @@
             BackEnd    <input type="checkbox" onclick="handleCheck(this)" /> 
 
             <div>
-                F# <input type="checkbox" />
+                F# <input type="checkbox"   onclick="handleCheck(this)" />
             </div>
 
             <div>
-                C# <input type="checkbox" />
+                C# <input type="checkbox"  onclick="handleCheck(this)" />
             </div>
 
             <div>
-                Node <input type="checkbox" />
+                Node <input type="checkbox"   onclick="handleCheck(this)" />
             </div>
 
             <div>
-                Python <input type="checkbox" />
+                Python <input type="checkbox" onclick="handleCheck(this)" />
             </div>
 
         </div>

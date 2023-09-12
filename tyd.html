@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="userName" />
+    <input type="text" id="password" />
+    <input type="button" value="Login" onclick="LoginToApplication()" />
+    <script>
+
+        function LoginToApplication()
+        {
+
+            let value = {
+
+                userName : document.getElementById("userName").value,
+                password: document.getElementById("password").value
+            }
+
+            fetch("http://20.246.136.52/api/v1/authenticate/Login",{
+
+                headers : {
+                    'Content-Type' : "application/json"
+                },
+                method : "post",
+                body : JSON.stringify(value)
+            })
+            .then(y=>y.json())
+            .then(y=> {
+
+                if(y.status == 200)
+                {
+                localStorage.setItem("token",JSON.stringify(y.data))
+                 window.location.href = "category.html";
+                }
+            })
+            }
+
+    </script>
+</body>
+</html>

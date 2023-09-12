@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="display"></div>
+
+    <script>
+
+        function displayInfo()
+        {
+            document.getElementById("display").innerHTML = "This is the javascript";
+
+            
+        }
+
+
+        setTimeout(()=> {
+            displayInfo()
+        },3000)
+
+    </script>
+    
+</body>
+</html>
